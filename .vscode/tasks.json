@@ -1,0 +1,36 @@
+{
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "C/C++: g++.exe build active file",
+            "command": "C:/Users/doant/OneDrive/Documents/coding/LTNC/sdl2/project/MinGW/bin/g++.exe",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "C:\\Users\\doant\\OneDrive\\Documents\\coding\\LTNC\\sdl2\\project\\source\\*.cpp",
+                "-IC:\\Users\\doant\\OneDrive\\Documents\\coding\\LTNC\\sdl2\\project\\header\\",
+                "-IC:\\Users\\doant\\OneDrive\\Documents\\coding\\LTNC\\sdl2\\project\\MinGW\\include\\",
+                "-lmingw32",
+                "-lSDL2main",
+                "-lSDL2",
+                "-lSDL2_image",
+                "-lSDL2_mixer",
+                "-lSDL2_ttf",
+                "-o",
+                "C:\\Users\\doant\\OneDrive\\Documents\\coding\\LTNC\\sdl2\\project\\game.exe"
+            ],
+            "options": {
+                "cwd": "C:/Users/doant/OneDrive/Documents/coding/LTNC/sdl2/project/MinGW/bin"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Generated task by Debugger."
+        }
+    ],
+    "version": "2.0.0"
+}

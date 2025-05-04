@@ -1,0 +1,23 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/header",
+                "${workspaceFolder}/MinGW/include",
+                "${workspaceFolder}/MinGW/include/SDL2"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "compilerPath": "C:\\Users\\doant\\OneDrive\\Documents\\coding\\sex\\sdl2\\MinGW\\bin\\gcc.exe",
+            "cStandard": "c17",
+            "cppStandard": "c++20",
+            "intelliSenseMode": "gcc-x64"
+        }
+    ],
+    "version": 4
+}
