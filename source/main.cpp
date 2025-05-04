@@ -5,10 +5,11 @@
 #include <cstdlib>
 #include <ctime>
 #include <cmath>
+using namespace std;
 
 const int WINDOW_WIDTH = 400;
 const int WINDOW_HEIGHT = 450; 
-const int GRID_SIZE = 40;
+const int GRID_SIZE = 4;
 const int CELL_SIZE = WINDOW_WIDTH / GRID_SIZE;
 const int ANIMATION_SPEED = 10; 
 
@@ -16,8 +17,8 @@ SDL_Window *window = nullptr;
 SDL_Renderer *renderer = nullptr;
 TTF_Font *font = nullptr;
 
-std::vector<std::vector<int>> grid(GRID_SIZE, std::vector<int>(GRID_SIZE, 0));
-std::vector<std::vector<std::pair<int, int>>> animationGrid(GRID_SIZE, std::vector<std::pair<int, int>>(GRID_SIZE, {0, 0}));
+vector<vector<int>> grid(GRID_SIZE, vector<int>(GRID_SIZE, 0));
+vector<vector<pair<int, int>>> animationGrid(GRID_SIZE, vector<pair<int, int>>(GRID_SIZE, {0, 0}));
 
 bool gameOver = false;
 bool gameWon = false;
@@ -34,7 +35,7 @@ void initialize()
     font = TTF_OpenFont("C:/Users/doant/OneDrive/Documents/coding/LTNC/sdl2/project/arial.ttf", 24);
     if (!font)
     {
-        std::cerr << "Failed to load font! Make sure 'arial.ttf' is in the same directory as the executable.\n";
+        cerr << "Failed to load font! Make sure 'arial.ttf' is in the same directory as the executable.\n";
         exit(1);
     }
 }
@@ -155,7 +156,7 @@ void drawGrid()
 
 void addRandomTile()
 {
-    std::vector<std::pair<int, int>> emptyCells;
+   vector<pair<int, int>> emptyCells;
     for (int i = 0; i < GRID_SIZE; ++i)
     {
         for (int j = 0; j < GRID_SIZE; ++j)
@@ -201,8 +202,8 @@ bool canMove()
 void moveTiles(int dx, int dy)
 {
     bool moved = false;
-    std::vector<std::vector<int>> newGrid = grid;
-    std::vector<std::vector<std::pair<int, int>>> newAnimationGrid = animationGrid;
+    vector<vector<int>> newGrid = grid;
+    vector<vector<pair<int, int>>> newAnimationGrid = animationGrid;
 
     if (dx != 0)
     {
@@ -368,7 +369,7 @@ int main(int argc, char *argv[])
                     gameWon = false;
                     moveCount = 0;
                     score = 0;
-                    grid = std::vector<std::vector<int>>(GRID_SIZE, std::vector<int>(GRID_SIZE, 0));
+                    grid = vector<vector<int>>(GRID_SIZE, vector<int>(GRID_SIZE, 0));
                     addRandomTile();
                     addRandomTile();
                 }
