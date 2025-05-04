@@ -26,6 +26,7 @@ bool gameStarted = false;
 int moveCount = 0;
 int score = 0;
 
+// Khởi tạo SDL và TTF
 void initialize()
 {
     SDL_Init(SDL_INIT_VIDEO);
@@ -40,6 +41,7 @@ void initialize()
     }
 }
 
+// Đóng SDL và TTF
 void close()
 {
     TTF_CloseFont(font);
@@ -49,6 +51,7 @@ void close()
     SDL_Quit();
 }
 
+// Hiển thị chữ
 void drawText(const char *text, int x, int y, SDL_Color color)
 {
     SDL_Surface *surface = TTF_RenderText_Solid(font, text, color);
@@ -59,25 +62,27 @@ void drawText(const char *text, int x, int y, SDL_Color color)
     SDL_DestroyTexture(texture);
 }
 
+// Hiển thị màn hình bắt đầu
 void drawStartScreen()
 {
     SDL_SetRenderDrawColor(renderer, 187, 173, 160, 255);
     SDL_RenderClear(renderer);
 
-    // Draw "2048" title
+    // Hiển thị tiêu đề "2048"
     SDL_Color titleColor = {119, 110, 101, 255};
     drawText("2048", WINDOW_WIDTH / 2 - 30, WINDOW_HEIGHT / 2 - 100, titleColor);
 
-    // Draw the start button
+    // Hiển thị nút "Start Game"
     SDL_Rect startButton = {WINDOW_WIDTH / 2 - 75, WINDOW_HEIGHT / 2 - 25, 150, 50};
-    SDL_SetRenderDrawColor(renderer, 0, 128, 0, 255); // Green color for the button
+    SDL_SetRenderDrawColor(renderer, 255, 235, 205, 1 ); // Chọn màu be cho nút "Start Game"
     SDL_RenderFillRect(renderer, &startButton);
-    SDL_Color buttonTextColor = {255, 255, 255, 255};
+    SDL_Color buttonTextColor = {119, 110, 101, 255}; // Chọn màu xanh lá cho chữ "Start Game"
     drawText("Start Game", WINDOW_WIDTH / 2 - 60, WINDOW_HEIGHT / 2 - 15, buttonTextColor);
 
     SDL_RenderPresent(renderer);
 }
 
+// Khởi tạo ô 4x4 với 2 ô 1x1 chứa số ngẫu nhiên
 void drawGrid()
 {
     SDL_SetRenderDrawColor(renderer, 187, 173, 160, 255);
@@ -87,16 +92,16 @@ void drawGrid()
     {
         for (int j = 0; j < GRID_SIZE; ++j)
         {
-            SDL_Rect cellRect = {j * CELL_SIZE + 5, i * CELL_SIZE + 55, CELL_SIZE - 10, CELL_SIZE - 10}; // Adjusted y position for the move counter and score
+            SDL_Rect cellRect = {j * CELL_SIZE + 5, i * CELL_SIZE + 55, CELL_SIZE - 10, CELL_SIZE - 10}; // Điều chỉnh vị trí y cho bộ đếm di chuyển và điểm số
 
-            // Set color based on whether the cell has a number or not
+           // Đặt màu dựa trên việc ô có số hay không
             if (grid[i][j] == 0)
             {
-                SDL_SetRenderDrawColor(renderer, 205, 193, 180, 255); // Light color for empty cells
+                SDL_SetRenderDrawColor(renderer, 205, 193, 180, 255); // Màu sáng cho ô trống
             }
             else
             {
-                SDL_SetRenderDrawColor(renderer, 238, 228, 218, 255); // Darker color for cells with numbers
+                SDL_SetRenderDrawColor(renderer, 238, 228, 218, 255); // Màu tối hơn cho ô có số
             }
             SDL_RenderFillRect(renderer, &cellRect);
 
@@ -108,45 +113,45 @@ void drawGrid()
                 int textWidth, textHeight;
                 TTF_SizeText(font, buffer, &textWidth, &textHeight);
                 int x = j * CELL_SIZE + (CELL_SIZE - textWidth) / 2 + animationGrid[i][j].first;
-                int y = i * CELL_SIZE + (CELL_SIZE - textHeight) / 2 + animationGrid[i][j].second + 55; // Adjusted y position for the move counter and score
+                int y = i * CELL_SIZE + (CELL_SIZE - textHeight) / 2 + animationGrid[i][j].second + 55; // Điều chỉnh vị trí y cho bộ đếm di chuyển và điểm số
                 drawText(buffer, x, y, textColor);
             }
         }
     }
 
-    // Draw move counter
+    // Hiển thị bộ đếm di chuyển
     char moveBuffer[20];
     snprintf(moveBuffer, sizeof(moveBuffer), "Moves: %d", moveCount);
     SDL_Color textColor = {119, 110, 101, 255};
     drawText(moveBuffer, 10, 15, textColor);
 
-    // Draw score
+    // Hiển thị điểm số
     char scoreBuffer[20];
     snprintf(scoreBuffer, sizeof(scoreBuffer), "Score: %d", score);
     drawText(scoreBuffer, WINDOW_WIDTH - 150, 15, textColor);
 
     if (gameOver)
     {
-        // Draw a semi-transparent black overlay
+        // Hiển thị lớp phủ đen bán trong suốt
         SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 128); // Black with 50% opacity
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 128); // Màu đen với độ mờ 50%
         SDL_Rect overlay = {0, 0, WINDOW_WIDTH, WINDOW_HEIGHT};
         SDL_RenderFillRect(renderer, &overlay);
 
-        // Draw "You Lose!" text
+        // Hiển thị chữ "You Lose!"
         SDL_Color loseColor = {255, 0, 0, 255};
         drawText("You Lose!", WINDOW_WIDTH / 2 - 50, WINDOW_HEIGHT / 2 - 20, loseColor);
     }
 
     if (gameWon)
     {
-        // Draw a semi-transparent black overlay
+        // Hiển thị lớp phủ đen bán trong suốt
         SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 128); // Black with 50% opacity
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 128); // Màu đen với độ mờ 50%
         SDL_Rect overlay = {0, 0, WINDOW_WIDTH, WINDOW_HEIGHT};
         SDL_RenderFillRect(renderer, &overlay);
 
-        // Draw "You Win!" text
+        // Hiển thị chữ "You Win!"
         SDL_Color winColor = {0, 255, 0, 255};
         drawText("You Win!", WINDOW_WIDTH / 2 - 50, WINDOW_HEIGHT / 2 - 20, winColor);
     }
@@ -154,6 +159,7 @@ void drawGrid()
     SDL_RenderPresent(renderer);
 }
 
+// Tạo thêm ô chứa số ngẫu nhiên
 void addRandomTile()
 {
    vector<pair<int, int>> emptyCells;
@@ -176,6 +182,7 @@ void addRandomTile()
     }
 }
 
+// Kiểm tra xem có thể di chuyển ô hay không
 bool canMove()
 {
     for (int i = 0; i < GRID_SIZE; ++i)
@@ -199,6 +206,7 @@ bool canMove()
     return false;
 }
 
+// Di chuyển ô
 void moveTiles(int dx, int dy)
 {
     bool moved = false;
@@ -221,7 +229,7 @@ void moveTiles(int dx, int dy)
                     if (x >= 0 && x < GRID_SIZE && newGrid[i][x] == newGrid[i][j])
                     {
                         newGrid[i][x] *= 2;
-                        score += newGrid[i][x]; // Update score
+                        score += newGrid[i][x]; // Cập nhật điểm 
                         newGrid[i][j] = 0;
                         newAnimationGrid[i][j] = {(x - j) * CELL_SIZE, 0};
                         moved = true;
@@ -257,7 +265,7 @@ void moveTiles(int dx, int dy)
                     if (y >= 0 && y < GRID_SIZE && newGrid[y][j] == newGrid[i][j])
                     {
                         newGrid[y][j] *= 2;
-                        score += newGrid[y][j]; // Update score
+                        score += newGrid[y][j]; // Câp nhật điểm
                         newGrid[i][j] = 0;
                         newAnimationGrid[i][j] = {0, (y - i) * CELL_SIZE};
                         moved = true;
@@ -285,7 +293,7 @@ void moveTiles(int dx, int dy)
         addRandomTile();
         moveCount++;
 
-        // Check if the player has won
+        // Kiểm tra xem người chơi đã thắng chưa
         for (int i = 0; i < GRID_SIZE; ++i)
         {
             for (int j = 0; j < GRID_SIZE; ++j)
@@ -305,6 +313,7 @@ void moveTiles(int dx, int dy)
     }
 }
 
+// Cập nhật hoạt ảnh (gộp 2 ô)
 void updateAnimation()
 {
     bool animating = false;
@@ -363,7 +372,7 @@ int main(int argc, char *argv[])
                 SDL_GetMouseState(&x, &y);
                 if (x >= WINDOW_WIDTH / 2 - 75 && x <= WINDOW_WIDTH / 2 + 75 && y >= WINDOW_HEIGHT / 2 - 25 && y <= WINDOW_HEIGHT / 2 + 25)
                 {
-                    // Start game button clicked
+                    // Khi người chơi ấn nút "Start Game"
                     gameStarted = true;
                     gameOver = false;
                     gameWon = false;
