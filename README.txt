@@ -12,4 +12,5 @@ Giới thiệu game 2048:
     + Khi đó màn hình sẽ hiển thị "You Lose!" tức là trò chơi đã kết thúc.
 2. Link tham khảo:
     + Bảng màu: https://learn.microsoft.com/vi-vn/power-platform/power-fx/reference/function-colors
+    + 
 

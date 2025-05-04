@@ -65,18 +65,18 @@ void drawText(const char *text, int x, int y, SDL_Color color)
 // Hiển thị màn hình bắt đầu
 void drawStartScreen()
 {
-    SDL_SetRenderDrawColor(renderer, 187, 173, 160, 255);
+    SDL_SetRenderDrawColor(renderer, 187, 173, 160, 255); //Chọn màu nền cho màn hình bắt đầu
     SDL_RenderClear(renderer);
 
     // Hiển thị tiêu đề "2048"
-    SDL_Color titleColor = {119, 110, 101, 255};
+    SDL_Color titleColor = {119, 110, 101, 255}; //Chọn màu cho chữ "2048"
     drawText("2048", WINDOW_WIDTH / 2 - 30, WINDOW_HEIGHT / 2 - 100, titleColor);
 
     // Hiển thị nút "Start Game"
     SDL_Rect startButton = {WINDOW_WIDTH / 2 - 75, WINDOW_HEIGHT / 2 - 25, 150, 50};
     SDL_SetRenderDrawColor(renderer, 255, 235, 205, 1 ); // Chọn màu be cho nút "Start Game"
     SDL_RenderFillRect(renderer, &startButton);
-    SDL_Color buttonTextColor = {119, 110, 101, 255}; // Chọn màu xanh lá cho chữ "Start Game"
+    SDL_Color buttonTextColor = {119, 110, 101, 255}; // Chọn m cho chữ "Start Game"
     drawText("Start Game", WINDOW_WIDTH / 2 - 60, WINDOW_HEIGHT / 2 - 15, buttonTextColor);
 
     SDL_RenderPresent(renderer);
@@ -85,7 +85,7 @@ void drawStartScreen()
 // Khởi tạo ô 4x4 với 2 ô 1x1 chứa số ngẫu nhiên
 void drawGrid()
 {
-    SDL_SetRenderDrawColor(renderer, 187, 173, 160, 255);
+    SDL_SetRenderDrawColor(renderer, 187, 173, 160, 255); //Chọn màu nền trong trò chơi
     SDL_RenderClear(renderer);
 
     for (int i = 0; i < GRID_SIZE; ++i)
